@@ -10,16 +10,15 @@
  *
  **/
 
-function Box ({ height, width, backgroundColor }) {
+function Box({ id, height=50, width=50, backgroundColor="pink" }) {
+  console.log(height, width, backgroundColor);
   return (
-    <li
-      style={{
-        backgroundColor: { backgroundColor },
-        height: `${height}px`,
-        width: `${width}px`
-      }}
-    ></li>
-  )
+    <div style = {{
+      backgroundColor: backgroundColor,
+      height: `${height}px`,
+      width: `${width}px`
+    }}></div>
+  );
 }
 
-export default Box
+export default Box;

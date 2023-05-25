@@ -1,29 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
-function NewBoxForm ({ addBox }) {
+function NewBoxForm({ addBox }) {
   const initialState = {
     height: '',
     width: '',
     backgroundColor: ''
-  }
+  };
   // multiple pieces of state
-  const [formData, setFormData] = useState(initialState)
+  const [formData, setFormData] = useState(initialState);
 
   /** Send {name, quantity} to parent
    *    & clear form. */
-  function handleSubmit (evt) {
-    evt.preventDefault()
-    addBox(formData)
-    setFormData(initialState)
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    console.log("form data", formData)
+    addBox({...formData, id: uuid()});
+    setFormData(initialState);
   }
 
   /** Update local state w/curr state of input elem */
-  function handleChange (evt) {
-    const { name, value } = evt.target
+  function handleChange(evt) {
+    const { name, value } = evt.target;
     setFormData(fData => ({
       ...fData,
       [name]: value
-    }))
+    }));
   }
   /** render form */
   return (
@@ -59,9 +61,9 @@ function NewBoxForm ({ addBox }) {
         onChange={handleChange}
       />
 
-      <button>Add a new item!</button>
+      <button>Add a new box!</button>
     </form>
-  )
+  );
 }
 
-export default NewBoxForm
+export default NewBoxForm;
