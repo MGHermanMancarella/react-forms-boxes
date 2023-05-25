@@ -1,31 +1,67 @@
-import { v4 as uuid } from 'uuid'
+import React, { useState } from 'react'
 
-function NewBoxForm () {
-  // multiple pieces of state
-  const [formData, setFormData] = useState({
+function NewBoxForm ({ addBox }) {
+  const initialState = {
     height: '',
     width: '',
-    backgroundColor: '',
-    remove: ''
-  })
+    backgroundColor: ''
+  }
+  // multiple pieces of state
+  const [formData, setFormData] = useState(initialState)
 
-  // multiple handleChange functions
+  /** Send {name, quantity} to parent
+   *    & clear form. */
+  function handleSubmit (evt) {
+    evt.preventDefault()
+    addBox(formData)
+    setFormData(initialState)
+  }
 
+  /** Update local state w/curr state of input elem */
   function handleChange (evt) {
-    const fieldName = evt.target.name
-    const value = evt.target.value
-
-    setFormData(currData => {
-      currData[fieldName] = value
-      return { ...currData }
-    })
+    const { name, value } = evt.target
+    setFormData(fData => ({
+      ...fData,
+      [name]: value
+    }))
   }
-  let fieldThatChanged = 'firstName'
+  /** render form */
+  return (
+    <form onSubmit={handleSubmit}>
+      <label style={{ display: 'block' }} htmlFor='height'>
+        Height
+      </label>
+      <input
+        type='number'
+        id='height'
+        name='height'
+        value={formData.height}
+        onChange={handleChange}
+      />
 
-  let newState = {
-    ...oldState,
-    [fieldThatChanged]: newValue
-  }
+      <label style={{ display: 'block' }} htmlFor='width'>
+        Width
+      </label>
+      <input
+        type='number'
+        id='width'
+        name='width'
+        value={formData.width}
+        onChange={handleChange}
+      />
+      <label style={{ display: 'block' }} htmlFor='backgroundColor'>
+        Background Color
+      </label>
+      <input
+        id='backgroundColor'
+        name='backgroundColor'
+        value={formData.backgroundColor}
+        onChange={handleChange}
+      />
+
+      <button>Add a new item!</button>
+    </form>
+  )
 }
 
 export default NewBoxForm

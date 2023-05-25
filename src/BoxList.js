@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import NewBoxForm from './NewBoxForm'
 import { v4 as uuid } from 'uuid'
+import Box from './Box'
 
 /** Box list: manages boxes
  *
@@ -22,26 +23,32 @@ function BoxList () {
         {boxes.map(box => (
           <li key={box.id}>
             {box.data}
-            {/* {removeBoxButton(box.id)} */}
+            <button onClick={() => removeBox(box.id)}>Remove The Box!</button>
           </li>
         ))}
       </ul>
     )
   }
+  /** Create a box from inputs */
 
   /** Add new box object to page. */
-  function addBox (box) {
-    let newBox = { ...box, id: uuid() }
+  function addBox (data) {
+    let newBox = Box(data)
+    newBox = { ...newBox, id: uuid() }
     setBoxes(boxes => [...boxes, newBox])
   }
 
-  // function removeBoxButton (id) {
-  //   const box =
-  // }
+  /** Removes box and sets new state */
+  function removeBox (boxId) {
+    // Filter out the box with the given ID
+    const updatedBoxes = boxes.filter(box => box.id !== boxId)
+    // Update the state
+    setBoxes(updatedBoxes)
+  }
   return (
     <div className='ShoppingList'>
       <NewBoxForm addBox={addBox} />
-      {renderBoxes()}
+      {renderBoxes}
     </div>
   )
 }

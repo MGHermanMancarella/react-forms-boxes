@@ -10,17 +10,15 @@
  *
  **/
 
-function Box ({ height, width, backgroundColor, remove }) {
+function Box ({ height, width, backgroundColor }) {
   return (
     <li
       style={{
-        backgroundColor: backgroundColor,
+        backgroundColor: { backgroundColor },
         height: `${height}px`,
         width: `${width}px`
       }}
-    >
-      <button> onClick={remove} </button>
-    </li>
+    ></li>
   )
 }
 
